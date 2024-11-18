@@ -12,14 +12,6 @@ const index = async () => {
     }
 }
 
-const createReview = async (formData) => {
-    try { const res = await axios.post(BASE_URL, formData)
-        return res.data
-    } catch(err) {
-        console.log(err)
-    }
-}
-
 const createComment = async (formData) => {
     try {
         const res = await axios.post(BASE_URL, formData)
@@ -28,6 +20,21 @@ const createComment = async (formData) => {
         console.log(err)
     }
 }
+
+const createReview = async (userId,reviewFormData) => {
+    try {
+      const token = localStorage.getItem('token')
+      const res = await axios.post(`${BASE_URL}/${userId}/reviews`, reviewFormData,{
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+      },
+      })
+      return res.data
+    } catch (error) {
+      console.log(error)
+    } 
+  }
 
 const update = async (formData, reviewId) => {
     try{
