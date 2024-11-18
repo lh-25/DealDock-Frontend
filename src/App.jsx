@@ -12,7 +12,7 @@ import ProductList from './components/ProductList'
 import ReviewForm from './components/ReviewForm'
 import NotFound from './components/NotFound'
 
-import { authService } from './authService'
+import { authService } from './services/authService'
 import axios from 'axios'
 
 export const AuthedUserContext = React.createContext()

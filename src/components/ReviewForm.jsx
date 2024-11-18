@@ -11,7 +11,7 @@ const ReviewForm = ({ sellerId, onSubmit }) => {
     e.preventDefault()
     const reviewData = { title, body, rating, username: user.username, sellerId }
     try {
-      const response = await axios.post(localhost:3002/:userId/reviews, reviewData)
+      const response = await axios.post('localhost:3002/:userId/reviews', reviewData)
       onSubmit(response.data)
       setTitle('')
       setBody('')
