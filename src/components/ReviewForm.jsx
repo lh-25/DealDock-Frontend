@@ -1,27 +1,27 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react'
+import axios from 'axios'
 
 const ReviewForm = ({ sellerId, onSubmit }) => {
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [rating, setRating] = useState(1);
-  const [message, setMessage] = useState('');
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
+  const [rating, setRating] = useState(1)
+  const [message, setMessage] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const reviewData = { title, body, rating, username: user.username, sellerId };
+    e.preventDefault()
+    const reviewData = { title, body, rating, username: user.username, sellerId }
     try {
-      const response = await axios.post(`localhost:3002/:userId/reviews`, reviewData);
-      onSubmit(response.data);
-      setTitle('');
-      setBody('');
-      setRating(1);
-      setMessage('Review submitted successfully!');
+      const response = await axios.post(localhost:3002/:userId/reviews, reviewData)
+      onSubmit(response.data)
+      setTitle('')
+      setBody('')
+      setRating(1)
+      setMessage('Review submitted successfully!')
     } catch (err) {
-      setMessage('Error submitting review. Please try again.');
-      console.error('Error submitting review:', err);
+      setMessage('Error submitting review. Please try again.')
+      console.error('Error submitting review:', err)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -59,7 +59,7 @@ const ReviewForm = ({ sellerId, onSubmit }) => {
       </div>
       <button type="submit">Submit Review</button>
     </form>
-  );
-};
+  )
+}
 
-export default ReviewForm;
+export default ReviewForm
