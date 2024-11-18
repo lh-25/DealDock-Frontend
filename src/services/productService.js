@@ -26,14 +26,27 @@ const show = async (productId) => {
   }
 }
 
+const indexProductsbySeller = async () => {
+  try {
+    const token = localStorage.getItem('token')
+    const res = await axios.get(`${BASE_URL}/my-products`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    return res.data
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
 const create = async (productFormData) => {
   try {
     const token = localStorage.getItem('token')
-    const res = await axios.post(BASE_URL, productFormData,{
-      headers: { 
+    const res = await axios.post(BASE_URL, productFormData, {
+      headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
-    },
+      },
     })
     return res.data
   } catch (error) {
@@ -41,19 +54,19 @@ const create = async (productFormData) => {
   }
 }
 
-const createComment = async (productId,commentFormData) => {
+const createComment = async (productId, commentFormData) => {
   try {
     const token = localStorage.getItem('token')
-    const res = await axios.post(`${BASE_URL}/${productId}/comments`, commentFormData,{
-      headers: { 
+    const res = await axios.post(`${BASE_URL}/${productId}/comments`, commentFormData, {
+      headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
-    },
+      },
     })
     return res.data
   } catch (error) {
     console.log(error)
-  } 
+  }
 }
 
 const deleteproduct = async (productId) => {
@@ -68,27 +81,27 @@ const deleteproduct = async (productId) => {
   }
 }
 
-const update = async (productId,productFormData) => {
+const update = async (productId, productFormData) => {
   try {
     const token = localStorage.getItem('token')
-    const res = await axios.put(`${BASE_URL}/${productId}`, productFormData,{
-      headers: { 
+    const res = await axios.put(`${BASE_URL}/${productId}`, productFormData, {
+      headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
-    },
+      },
     })
     return res.data
   } catch (error) {
     console.log(error)
-  } 
+  }
 }
 
 export {
   index,
   show,
+  indexProductsbySeller,
   create,
   deleteproduct,
   update,
   createComment
-
 }
