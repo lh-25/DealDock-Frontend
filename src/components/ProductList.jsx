@@ -4,7 +4,7 @@ import ProductForm from './ProductForm';
 import SellerReviewForm from './ReviewForm';
 
 
-const ProductList = ({ sellerId, user }) => {
+const ProductList = ({ seller, user }) => {
   const [products, setProducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -14,7 +14,7 @@ const ProductList = ({ sellerId, user }) => {
     axios.get(`http://localhost:3002/my-products`)
       .then(response => setProducts(response.data))
       .catch(error => console.error('Error fetching products:', error));
-  }, [sellerId]);
+  }, [seller]);
 
   const handleAddProductClick = () => {
     setSelectedProduct(null);
