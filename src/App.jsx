@@ -22,8 +22,19 @@ const App = () => {
 
 
   return (
-    <>
-    </>
+    <Router>
+      <div>
+        <Header /> 
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/products" element={<ProductDetails />} />
+          <Route path="/product/:id" element={<ProductList />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </Router>
   )
 }
 
