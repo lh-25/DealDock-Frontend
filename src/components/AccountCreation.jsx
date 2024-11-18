@@ -1,20 +1,23 @@
-
 import { useState } from 'react';
-import axios from 'axios';
+import axios from 'axios'
+import * as authService from '../../services/authService';
 
-const AccountCreation = () => {
+
+const AccountCreation = (props) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const newUser = { username, email, password };
-        axios.post('http://localhost:3002/signup', newUser)
-            .then(response => {
-                console.log('User registered:', response.data);
-            })
-            .catch(error => console.error('Error registering user:', error));
+        const formData = { username, email, password };
+        try {
+            const newUserResponse = await authService.signup(formData);
+            props.setUser(newUserResponse.user);
+            props.navigate('/');
+        } catch (err) {
+            props.updateMessage(err.message);
+        }
     };
 
     return (
@@ -52,15 +55,3 @@ const AccountCreation = () => {
 };
 
 export default AccountCreation;
-import * as authService from '../../services/authService'
-
-const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-        const newUserResponse = await authSerivce.signup(formData)
-        props.setUser(newUserResponse.user)
-        navigate('/')
-    }catch (err) {
-        updateMessage(err.message)
-    }
-}
