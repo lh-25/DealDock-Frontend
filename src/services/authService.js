@@ -1,21 +1,13 @@
-// src/services/authService.js
-// Helper function to store and get the token
-const saveToken = (token) => localStorage.setItem('token', token);
-const getToken = () => localStorage.getItem('token');
-const clearToken = () => localStorage.removeItem('token');
-
-
 const signup = async (formData) => {
   try {
     const res = await fetch(`${BACKEND_URL}/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
+      credentials: 'include', // Include cookies in the request
     });
     const json = await res.json();
-    if (json.err) {
-      throw new Error(json.err);
-    }
+    if (json.err) throw new Error(json.err);
     return json;
   } catch (err) {
     console.log(err);
@@ -29,11 +21,10 @@ const signin = async (formData) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
+      credentials: 'include', // Include cookies in the request
     });
     const json = await res.json();
     if (json.error) throw new Error(json.error);
-
-    saveToken(json.token);
     return json;
   } catch (err) {
     console.log('Signin Error:', err);
@@ -42,11 +33,17 @@ const signin = async (formData) => {
 };
 
 // Function to sign out a user
-const signout = () => {
-  clearToken();
-  console.log('User signed out successfully');
+const signout = async () => {
+  try {
+    await fetch(`${BACKEND_URL}/users/signout`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+    console.log('User signed out successfully');
+  } catch (err) {
+    console.log('Signout Error:', err);
+  }
 };
-
 // Function to check if user is authenticated
 const isAuthenticated = () => !!getToken();
 
