@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import * as authService from '../services/authService'
 
 export default function LandingPage({ setUser }) {
@@ -22,13 +22,13 @@ export default function LandingPage({ setUser }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const user = await authService.signin(formData);
+      const user = await authService.signin(formData)
       setUser(user)
       navigate('/')
     } catch (err) {
-      updateMessage(err.message);
+      updateMessage(err.message)
     }
-  };
+  }
 
   return (
     <main>
