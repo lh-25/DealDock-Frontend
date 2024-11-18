@@ -1,3 +1,6 @@
+import BACKEND_URL from './.env'
+
+
 const signup = async (formData) => {
   try {
     const res = await fetch(`${BACKEND_URL}/users/signup`, {
