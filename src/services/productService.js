@@ -88,6 +88,7 @@ export {
   show,
   create,
   deleteproduct,
-  update
+  update,
+  createComment
 
 }
