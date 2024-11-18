@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios'
-import * as authService from '../../services/authService';
+import * as authService from '../services/authService';
 
 
 const AccountCreation = (props) => {
