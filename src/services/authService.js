@@ -1,4 +1,4 @@
-import BACKEND_URL from './.env'
+import BACKEND_URL from `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/users`;
 
 
 const signup = async (formData) => {
