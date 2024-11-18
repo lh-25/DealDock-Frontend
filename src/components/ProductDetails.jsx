@@ -9,26 +9,27 @@ const ProductDetails = ({ products }) => {
     (product) => product._id === productId
   )
 
+  
   if (!selectedProduct) {
     return <p>Product not found</p>
   }
 
-
   const [currentPrice, setCurrentPrice] = useState(selectedProduct.price)
   const [newBid, setNewBid] = useState('')
 
-  
   const handleBidSubmit = (e) => {
     e.preventDefault()
 
+    
     const bidValue = parseFloat(newBid)
+
 
     if (isNaN(bidValue) || bidValue <= currentPrice) {
       alert('Please enter a bid higher than the current price.')
       return
     }
 
-
+   
     setCurrentPrice(bidValue)
     setNewBid('')
   }
@@ -41,6 +42,12 @@ const ProductDetails = ({ products }) => {
       </div>
       <div className="product-info">
         <dl>
+          {selectedProduct.seller ? (
+            <>
+              <dt>Seller:</dt>
+              <dd>{selectedProduct.seller.username}</dd>
+            </>
+          ) : null}
           <dt>Description:</dt>
           <dd>{selectedProduct.description}</dd>
           <dt>Current Price:</dt>
