@@ -62,6 +62,7 @@ export default function LandingPage({ setUser }) {
           <Link to="/">
             <button>Cancel</button>
           </Link>
+          <Link to={'/signup'}>Create an Account</Link>
         </div>
       </form>
       
