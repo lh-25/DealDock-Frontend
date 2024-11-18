@@ -23,10 +23,6 @@ const signup = async (formData) => {
   }
 };
 
-export {
-  signup,
-};
-
 const signin = async (formData) => {
   try {
     const res = await fetch(`${BACKEND_URL}/users/signin`, {
