@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { AuthedUserContext } from '../../App'
+import { AuthedUserContext } from '../App'
 import { Link } from 'react-router-dom'
 export default function BuyerDashboard({ products }) {
   const user = useContext(AuthedUserContext)
