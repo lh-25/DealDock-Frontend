@@ -69,7 +69,7 @@ const createComment = async (productId, commentFormData) => {
   }
 }
 
-const deleteproduct = async (productId) => {
+const deleteProduct = async (productId) => {
   try {
     const token = localStorage.getItem('token')
     const res = await axios.delete(`${BASE_URL}/${productId}`, {
@@ -101,7 +101,7 @@ export {
   show,
   indexProductsbySeller,
   create,
-  deleteproduct,
+  deleteProduct,
   update,
   createComment
 }
