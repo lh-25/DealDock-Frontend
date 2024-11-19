@@ -9,7 +9,6 @@ console.log('BACKEND_URL:', BACKEND_URL)
 const getUser = () => {
   const token = getToken();
   if (!token) return null;
-
   try {
     const payload = JSON.parse(atob(token.split('.')[1])); // Decode the payload
     return payload; // Return the decoded user information
