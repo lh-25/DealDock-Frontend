@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext } from 'react'
 import './App.css'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
@@ -12,10 +12,11 @@ import ProductList from './components/ProductList'
 import ReviewForm from './components/ReviewForm'
 import NotFound from './components/NotFound'
 
-import { authService } from './services/authService'
+import * as authService  from './services/authService'
+
 import * as productService from './services/productService'
 
-export const AuthedUserContext = React.createContext()
+export const AuthedUserContext = createContext()
 
 const App = () => {
   const [user, setUser] = useState(null)
