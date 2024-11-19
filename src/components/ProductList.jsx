@@ -13,6 +13,7 @@ const ProductList = ({ seller, user }) => {
   useEffect(() => {
     axios.get(`http://localhost:3002/my-products`)
       .then(response => setProducts(response.data))
+      if (!products) return "no products"
       .catch(error => console.error('Error fetching products:', error));
   }, [seller]);
 
