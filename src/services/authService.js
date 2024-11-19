@@ -7,11 +7,18 @@ const BACKEND_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}`
 console.log('BACKEND_URL:', BACKEND_URL)
 
 const getUser = () => {
-  const token = localStorage.getItem('token');
+  const token = getToken();
   if (!token) return null;
-  const user = JSON.parse(atob(token.split('.')[1]));
-  return user;
-}
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1])); // Decode the payload
+    return payload; // Return the decoded user information
+  } catch (err) {
+    console.error('Invalid token:', err.message);
+    clearToken(); // Remove invalid token
+    return null;
+  }
+};
 
 const signup = async (formData) => {
   try {
