@@ -59,7 +59,7 @@ const App = () => {
 
 
   const handleLogout = () => {
-    authService.logout()
+    authService.signout()
     setUser(null)
   }
 
