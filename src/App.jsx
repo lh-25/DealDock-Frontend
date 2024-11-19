@@ -40,13 +40,13 @@ const App = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const productData = await productService.index()
-      setProducts(productData)
-      if (user) {
-        fetchProducts()
+      if(user) {
+        const productData = await productService.index();
+        setProducts(productData);
       }
     }
-  }, [user])
+    fetchProducts()
+  })
 
   const handleLogin = async (email, password) => {
     try {
