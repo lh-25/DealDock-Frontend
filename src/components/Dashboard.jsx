@@ -9,7 +9,7 @@ export default function Dashboard({ products }) {
     <main>
       <h1>Welcome to DealDock {user.username}</h1>
       {products.map((product) => (
-        <Link key={product._id} to={`/productsDetails/${product._id}`}>
+        <Link key={product._id} to={`/productDetails/${product._id}`}>
           <div>
             <img src={product.imgURL} alt='product image' />
             <h2>{product.name}</h2>
