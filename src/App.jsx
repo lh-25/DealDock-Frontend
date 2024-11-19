@@ -3,7 +3,7 @@ import './App.css'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 import AccountCreation from './components/AccountCreation'
-import Dashboard from './components/Dashboard'
+import Shop from './components/Shop'
 import LandingPage from './components/LandingPage'
 import NavBar from './components/NavBar'
 import ProductDetails from './components/ProductDetails'
@@ -59,7 +59,7 @@ const App = () => {
 
 
   const handleLogout = () => {
-    authService.logout()
+    authService.signout()
     setUser(null)
   }
 
@@ -88,9 +88,9 @@ const App = () => {
       <div>
         <NavBar user={user} handleLogout={handleLogout} />
         <Routes>
-          <Route path="/" element={<LandingPage setUser={setUser} />} />
-          <Route path="/dashboard" element={<Dashboard products={products} user={user} />} />
-          <Route path="/login" element={<AccountCreation setUser={setUser} />} />
+          <Route path="/login" element={<LandingPage setUser={setUser} />} />
+          <Route path="/Shop" element={<Shop products={products} user={user} />} />
+          <Route path="/AccountCreation" element={<AccountCreation/>}/>
           <Route
             path="/products"
             element={<ProductList products={products} handleDeleteProduct={handleDeleteProduct} />}

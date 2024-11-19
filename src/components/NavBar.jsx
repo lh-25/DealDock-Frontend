@@ -5,8 +5,7 @@ const NavBar = ({ user, handleLogout }) => {
   return (
     <nav className="navbar">
       <div className="navbar-links">
-        <Link to="/">Home</Link>
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/Shop">Shop</Link>
         <Link to="/products">Products</Link>
         {user ? (
           <>

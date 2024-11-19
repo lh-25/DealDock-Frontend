@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthedUserContext } from '../App'
 
-export default function Dashboard({ products }) {
+export default function Shop({ products }) {
   const user = useContext(AuthedUserContext)
 
   return (
