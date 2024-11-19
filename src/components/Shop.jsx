@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AuthedUserContext } from '../App'
 
 export default function Shop({ products }) {
-  const user = useContext(AuthedUserContext)
+  const { user } = useContext(AuthedUserContext)
 
   return (
     <main>
