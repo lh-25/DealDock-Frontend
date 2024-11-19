@@ -86,18 +86,20 @@ const App = () => {
   return (
     <AuthedUserContext.Provider value={{ user, handleLogin, handleLogout }}>
       <div>
-        <NavBar />
+        <NavBar user={user} handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<LandingPage setUser={setUser} />} />
           <Route path="/dashboard" element={<Dashboard products={products} user={user} />} />
           <Route path="/login" element={<AccountCreation setUser={setUser} />} />
-          <Route path="/products" element={<ProductList products={products} handleDeleteProduct={handleDeleteProduct} />} />
+          <Route
+            path="/products"
+            element={<ProductList products={products} handleDeleteProduct={handleDeleteProduct} />}
+          />
           <Route
             path="/productDetails/:id"
             element={
               <ProductDetails
                 products={products}
-
                 renderReviewForm={(sellerId) => (
                   <ReviewForm sellerId={sellerId} onSubmit={(review) => console.log(review)} />
                 )}
@@ -106,17 +108,15 @@ const App = () => {
           />
           <Route
             path="/addProduct"
-            element={
-              <ProductForm
-                handleAddProduct={handleAddProduct}
-              />
-            }
+            element={<ProductForm handleAddProduct={handleAddProduct} />}
           />
           <Route
             path="/editProduct/:id"
             element={
               <ProductForm
-                selected={products.find((product) => product._id === window.location.pathname.split('/').pop())}
+                selected={products.find(
+                  (product) => product._id === window.location.pathname.split('/').pop()
+                )}
                 handleUpdateProduct={handleUpdateProduct}
               />
             }

@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
-function Nav() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-
-  useEffect(() => {
-    axios
-      .get('/protected')
-      .then(() => setIsAuthenticated(true))
-      .catch(() => setIsAuthenticated(false))
-  }, []);
-
+const NavBar = ({ user, handleLogout }) => {
   return (
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/productList">Shop</Link>
-      <Link to="/Dashboard">Dashboard</Link>
-      {!isAuthenticated && <Link to="/AccountCreation">Account Creation</Link>}
+    <nav className="navbar">
+      <div className="navbar-links">
+        <Link to="/">Home</Link>
+        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/products">Products</Link>
+        {user ? (
+          <>
+            <span>Welcome, {user.username}!</span>
+            <button className="logout-button" onClick={handleLogout}>
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
+      </div>
     </nav>
   )
 }
 
-export default Nav
+export default NavBar
