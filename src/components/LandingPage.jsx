@@ -24,7 +24,7 @@ export default function LandingPage({ setUser }) {
     try {
       const user = await authService.signin(formData)
       setUser(user)
-      navigate('/dashboard')
+      navigate('/shop')
     } catch (err) {
       updateMessage(err.message)
     }
