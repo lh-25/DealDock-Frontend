@@ -23,13 +23,14 @@ const signup = async (formData) => {
     const json = await res.json();
     if (json.err) {
       throw new Error(json.err);
-    }
+    } localStorage.setItem('token', json.token);
     return json;
   } catch (err) {
     console.log(err);
     throw err;
   }
 };
+
 
 const signin = async (formData) => {
   try {
