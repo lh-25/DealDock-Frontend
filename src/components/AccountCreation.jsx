@@ -3,11 +3,16 @@ import axios from 'axios'
 import * as authService from '../services/authService';
 
 
+
 const AccountCreation = (props) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const updateMessage = (msg) => {
+        setMessage(msg);
+    }
+  
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = { username, email, password };
