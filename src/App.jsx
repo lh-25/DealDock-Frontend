@@ -24,13 +24,17 @@ const App = () => {
   const navigate = useNavigate()
 
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const loggedInUser = await authService.getUser()
-      setUser(loggedInUser)
+  const fetchUser = () => {
+    const currentUser = authService.getUser();
+    if (currentUser) {
+      setUser(currentUser);
+    } else {
+      console.log('No valid user found.');
     }
+  };
 
-    fetchUser()
+  useEffect(() => {
+    fetchUser();
   }, [])
 
 
@@ -85,8 +89,8 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<LandingPage setUser={setUser} />} />
-          <Route path="/dashboard" element={<Dashboard products={products} />} />
-          <Route path="/login" element={<AccountCreation onLogin={handleLogin} />} />
+          <Route path="/dashboard" element={<Dashboard products={products} user={user} />} />
+          <Route path="/login" element={<AccountCreation setUser={setUser} />} />
           <Route path="/products" element={<ProductList products={products} handleDeleteProduct={handleDeleteProduct} />} />
           <Route
             path="/productDetails/:id"
