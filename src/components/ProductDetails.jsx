@@ -71,8 +71,12 @@ const ProductDetails = ({ products }) => {
           ) : null}
           <dt>Description:</dt>
           <dd>{selectedProduct.description}</dd>
+          {/* <dt>Starting Price:</dt>
+          <dd>${startingPrice.toFixed(2)}</dd> */}
           <dt>Current Price:</dt>
           <dd>${currentPrice.toFixed(2)}</dd>
+          {/* <dt>Buy Now:</dt>
+          <dd>${buyNowPrice.toFixed(2)}</dd> */}
         </dl>
       </div>
       <form onSubmit={handleBidSubmit}>
