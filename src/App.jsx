@@ -90,7 +90,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<LandingPage setUser={setUser} />} />
           <Route path="/Shop" element={<Shop products={products} user={user} />} />
-          <Route path="/AccountCreation" element={<AccountCreation/>}/>
+          <Route path="/AccountCreation" element={<AccountCreation  setUser={setUser} />}/>
           <Route
             path="/products"
             element={<ProductList products={products} handleDeleteProduct={handleDeleteProduct} />}
