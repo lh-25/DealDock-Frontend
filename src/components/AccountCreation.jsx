@@ -5,7 +5,7 @@ import { useNavigate }  from 'react-router-dom';
 
 
 const AccountCreation = (props) => {
-    const navigate = useNavigate ()
+    const navigate = useNavigate()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message,setMessage] = useState([''])
@@ -20,7 +20,7 @@ const AccountCreation = (props) => {
         try {
             const newUserResponse = await authService.signup(formData);
             props.setUser(newUserResponse.user);
-            navigate('/');
+            navigate('/login');
         } catch (err) {
             updateMessage(err.message);
         }
