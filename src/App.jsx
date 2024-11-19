@@ -84,7 +84,7 @@ const App = () => {
       <div>
         <NavBar />
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage setUser={setUser} />} />
           <Route path="/dashboard" element={user ? <Dashboard products={products} /> : <Navigate to="/login" />} />
           <Route path="/login" element={<AccountCreation onLogin={handleLogin} />} />
           <Route path="/products" element={<ProductList products={products} handleDeleteProduct={handleDeleteProduct} />} />
