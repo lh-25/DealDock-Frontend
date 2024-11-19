@@ -1,9 +1,9 @@
-const BACKEND_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/users`;
-
+const BACKEND_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}`;
+import axios from 'axios'
 
 const signup = async (formData) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/users/signup`, {
+    const res = await fetch(`${BACKEND_URL}/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -47,6 +47,16 @@ const signout = async () => {
     console.log('Signout Error:', err);
   }
 };
+
+const getUser = () => {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+  const user = JSON.parse(atob(token.split('.')[1]));
+  return user;
+}
+
+
+
 // Function to check if user is authenticated
 const isAuthenticated = () => !!getToken();
 
@@ -55,4 +65,5 @@ export {
   signin,
   signout,
   isAuthenticated,
+  getUser
 };
