@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import axios from 'axios'
 import * as authService from '../services/authService';
+import { useNavigate }  from 'react-router-dom';
 
 
 
 const AccountCreation = (props) => {
+    const navigate = useNavigate ()
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,9 +21,9 @@ const AccountCreation = (props) => {
         try {
             const newUserResponse = await authService.signup(formData);
             props.setUser(newUserResponse.user);
-            props.navigate('/');
+            navigate('/');
         } catch (err) {
-            props.updateMessage(err.message);
+            updateMessage(err.message);
         }
     };
 
