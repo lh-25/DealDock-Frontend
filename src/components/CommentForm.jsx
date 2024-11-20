@@ -18,12 +18,12 @@ function CommentForm({ productId, onCommentAdded }) {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         }
-      );
+      )
 
       setText('');
-      if (onCommentAdded) onCommentAdded(response.data);
+      if (onCommentAdded) onCommentAdded(response.data)
     } catch (err) {
-      console.error(err);
+      console.error(err)
       setError('Failed to add comment. Please try again.')
     }
   }
