@@ -19,7 +19,7 @@ const ProductDetails = () => {
         })
         setSelectedProduct(response.data)
       } catch (error) {
-        console.error('Error fetching product:', error);
+        console.error('Error fetching product:', error)
         if (error.response?.status === 403) {
           alert('You are not authorized to view this product.')
         }
@@ -32,12 +32,12 @@ const ProductDetails = () => {
   }, [id])
 
   const handleBidSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const bidValue = parseFloat(newBid);
     if (isNaN(bidValue) || bidValue <= (selectedProduct?.currentBid || selectedProduct.startingBid)) {
       alert('Please enter a bid higher than the current bid or starting price.')
-      return
+      return;
     }
 
     try {
@@ -49,8 +49,8 @@ const ProductDetails = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         }
-      );
-      setSelectedProduct(response.data);
+      )
+      setSelectedProduct(response.data)
       setNewBid('')
     } catch (error) {
       console.error('Error submitting bid:', error)
@@ -60,7 +60,15 @@ const ProductDetails = () => {
         alert('An error occurred while submitting your bid. Please try again.')
       }
     }
-  };
+  }
+
+  
+  const handleCommentAdded = (newComment) => {
+    setSelectedProduct((prevState) => ({
+      ...prevState,
+      comments: [newComment, ...prevState.comments], 
+    }))
+  }
 
   if (loading) {
     return <p>Loading product details...</p>
@@ -134,7 +142,7 @@ const ProductDetails = () => {
         ) : (
           <p>No comments yet. Be the first to comment!</p>
         )}
-        <CommentForm productId={id} />
+        <CommentForm productId={id} onCommentAdded={handleCommentAdded} />
       </div>
     </div>
   )
