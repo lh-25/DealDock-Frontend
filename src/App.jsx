@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext } from 'react'
 import './App.css'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-
+import MyProducts from './components/MyProducts'
 import AccountCreation from './components/AccountCreation'
 import Shop from './components/Shop'
 import LandingPage from './components/LandingPage'
@@ -12,7 +12,7 @@ import ProductList from './components/ProductList'
 import ReviewForm from './components/ReviewForm'
 import NotFound from './components/NotFound'
 
-import * as authService  from './services/authService'
+import * as authService from './services/authService'
 
 import * as productService from './services/productService'
 
@@ -21,7 +21,7 @@ export const AuthedUserContext = createContext()
 const App = () => {
   const [user, setUser] = useState(null)
   const [products, setProducts] = useState([])
-  const [startingBid, setStartingBid] = useState([])
+  const [myProducts, setMyProducts] = useState([])
   const navigate = useNavigate()
 
 
@@ -38,10 +38,24 @@ const App = () => {
     fetchUser();
   }, [])
 
+  useEffect(() => {
+    const getMyProducts = async () => {
+      try {
+        const ProductsData = await productService.indexMyProducts()
+        setMyProducts(ProductsData)
+
+      } catch (error) {
+        console.log('Error fetching my products', error)
+      }
+    }
+    if (user) {
+      getMyProducts()
+    }
+  }, [user])
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if(user) {
+      if (user) {
         const productData = await productService.index();
         setProducts(productData);
       }
@@ -68,12 +82,12 @@ const App = () => {
   const handleAddProduct = async (productFormData) => {
     const newProduct = await productService.create(productFormData)
     setProducts([newProduct, ...products])
-    navigate('/products')
+    navigate('/Shop')
   }
 
 
   const handleUpdateProduct = async (productId, productFormData) => {
-    const updatedProduct = await productService.update()
+    const updatedProduct = await productService.update(productFormData, productId)
     setProducts(products.map((product) => (productId === product._id ? updatedProduct : product)))
     navigate(`/productDetails/${productId}`)
   }
@@ -91,11 +105,19 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<LandingPage setUser={setUser} />} />
           <Route path="/Shop" element={<Shop products={products} user={user} />} />
-          <Route path="/AccountCreation" element={<AccountCreation  setUser={setUser} />}/>
-          <Route
-            path="/products"
-            element={<ProductList products={products} handleAddProduct={handleAddProduct} handleDeleteProduct={handleDeleteProduct} />}
-          />
+          <Route path="/AccountCreation" element={<AccountCreation setUser={setUser} />} />
+          <Route path="/my-products" element={<MyProducts myProducts={myProducts} />} />
+          {/* <Route path="/products/:productId" element={<ProductDetails handleDeleteProduct={handleDeleteProduct} />} /> */}
+          <Route path="/products/new" element={<ProductForm handleAddProduct={handleAddProduct} />} />
+          <Route path="/products/:productId/edit" element={<ProductForm handleUpdateProduct={handleUpdateProduct} />} />
+          {/* <Route
+            path="/my-products"
+            element={myProducts ? (
+              <ProductList myProducts={myProducts} handleAddProduct={handleAddProduct} handleDeleteProduct={handleDeleteProduct} />
+            ) : (
+              <div>Loading...</div>
+            )}
+          /> */}
           <Route
             path="/productDetails/:id"
             element={
@@ -107,22 +129,15 @@ const App = () => {
               />
             }
           />
-          <Route
-            path="/addProduct"
+          {/* <Route
+            path="/add-product"
             element={<ProductForm handleAddProduct={handleAddProduct} />}
           />
           <Route
             path="/editProduct/:id"
-            element={
-              <ProductForm
-                selected={products.find(
-                  (product) => product._id === window.location.pathname.split('/').pop()
-                )}
-                handleUpdateProduct={handleUpdateProduct}
-              />
-            }
+            element={<ProductForm handleUpdateProduct={handleUpdateProduct} />}
           />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </div>
     </AuthedUserContext.Provider>

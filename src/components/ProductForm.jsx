@@ -2,13 +2,13 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as productService from '../services/productService';
 
-const ProductForm = (props) => {
+const ProductForm = ({handleAddProduct, handleUpdateProduct}) => {
   const { productId } = useParams();
   const initialState = {
     name: '',
     description: '',
-    buyNowPrice: '',
-    startingBid: '',
+    buyNowPrice: 0,
+    startingBid: 0,
     imgURL: ''
   };
   
@@ -23,7 +23,7 @@ const ProductForm = (props) => {
           name: productData.name || '',
           description: productData.description || '',
           buyNowPrice: productData.buyNowPrice || '',
-          startingPrice: productData.startingPrice || '',
+          startingBid: productData.startingBid || '',
           imgURL: productData.imgURL || ''
         });
       }
@@ -40,9 +40,9 @@ const ProductForm = (props) => {
   const handleSubmitForm = (evt) => {
     evt.preventDefault();
     if (productId) {
-      props.handleUpdateProduct(formData, productId);
+      handleUpdateProduct(formData, productId);
     } else {
-      props.handleAddProduct(formData);
+      handleAddProduct(formData);
     }
   };
 

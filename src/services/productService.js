@@ -26,7 +26,7 @@ const show = async (productId) => {
   }
 }
 
-const indexProductsbySeller = async () => {
+const indexMyProducts = async () => {
   try {
     const token = localStorage.getItem('token')
     const res = await axios.get(`${BASE_URL}/my-products`, {
@@ -99,7 +99,7 @@ const update = async (productId, productFormData) => {
 export {
   index,
   show,
-  indexProductsbySeller,
+  indexMyProducts,
   create,
   deleteProduct,
   update,

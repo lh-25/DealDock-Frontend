@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import CommentForm from './CommentForm';
+import * as productService from '../services/productService'
+
 
 const ProductDetails = () => {
-  const { id } = useParams();
+  const { productId } = useParams();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [newBid, setNewBid] = useState('');
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3002/products/${id}`)
-      .then((response) => {
-        setSelectedProduct(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching product:', error);
-      })
-      .finally(() => setLoading(false));
-  }, [id]);
+    const getProduct = async () => {
+      try {
+        const productData = await productService.show(productId)
+      setSelectedProduct(productData)
+      } catch (error) {
+         console.error('Error fetching product:', error);
+      }
+      getProduct()
+  }}, [productId]);
 
   const handleBidSubmit = async (e) => {
     e.preventDefault();
@@ -39,9 +40,9 @@ const ProductDetails = () => {
     }
   };
 
-  if (loading) {
-    return <p>Loading product details...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading product details...</p>;
+  // }
 
   if (!selectedProduct) {
     return <p>Product not found</p>;

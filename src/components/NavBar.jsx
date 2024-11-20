@@ -14,6 +14,8 @@ const NavBar = ({ user, handleLogout }) => {
       <div className="navbar-links">
         <Link to="/Shop">Shop</Link>
         <Link to="/products">Products</Link>
+        <Link to={'products/new'}>New Product</Link>
+        <Link to='my-products'>My Products List</Link>
         {user ? (
           <>
             <span>Welcome, {user.username}!</span>
