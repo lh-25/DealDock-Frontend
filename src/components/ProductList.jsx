@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import ProductForm from './ProductForm';
-import SellerReviewForm from './ReviewForm';
 import * as productService from '../services/productService';
 
-const ProductList = ({ seller, user }) => {
+const ProductList = (props) => {
   const [products, setProducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isReviewModalVisible, setIsReviewModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -20,7 +18,7 @@ const ProductList = ({ seller, user }) => {
     };
 
     fetchProducts();
-  }, [seller]);
+  }, [props.seller]);
 
   const handleAddProductClick = () => {
     setSelectedProduct(null);
@@ -33,11 +31,9 @@ const ProductList = ({ seller, user }) => {
       console.error('Invalid product data:', product);
       return;
     }
-    
+
     try {
-      console.log('Fetching product details for:', productId);
       const productData = await productService.show(productId);
-      console.log('Fetched product data:', productData);
       setSelectedProduct(productData);
       setIsModalVisible(true);
     } catch (error) {
@@ -45,19 +41,14 @@ const ProductList = ({ seller, user }) => {
     }
   };
 
-  const handleAddReviewClick = () => {
-    setIsReviewModalVisible(true);
-  };
-
   const handleCloseModal = () => {
     setIsModalVisible(false);
-    setIsReviewModalVisible(false);
   };
 
   const handleAddProduct = async (product) => {
     try {
       const newProduct = await productService.create(product);
-      setProducts(prevProducts => [...prevProducts, newProduct]);
+      setProducts((prevProducts) => [...prevProducts, newProduct]);
       handleCloseModal();
     } catch (error) {
       console.error('Error adding product:', error);
@@ -67,8 +58,8 @@ const ProductList = ({ seller, user }) => {
   const handleUpdateProduct = async (updatedProduct, productId) => {
     try {
       const updated = await productService.update(productId, updatedProduct);
-      setProducts(prevProducts =>
-        prevProducts.map(product =>
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
           product.id === productId || product._id === productId ? updated : product
         )
       );
@@ -81,7 +72,9 @@ const ProductList = ({ seller, user }) => {
   const handleDeleteProduct = async (productId) => {
     try {
       await productService.deleteProduct(productId);
-      setProducts(prevProducts => prevProducts.filter(product => product.id !== productId && product._id !== productId));
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.id !== productId && product._id !== productId)
+      );
     } catch (error) {
       console.error('Error deleting product:', error);
     }
@@ -91,7 +84,6 @@ const ProductList = ({ seller, user }) => {
     <div className="product-list">
       <h2>Your Products</h2>
       <button onClick={handleAddProductClick}>Add New Product</button>
-      <button onClick={handleAddReviewClick}>Leave a Review</button>
       <div className="product-grid">
         {products.map((product, index) => (
           <div key={product.id || product._id || index} className="product-card">
@@ -116,21 +108,6 @@ const ProductList = ({ seller, user }) => {
               selected={selectedProduct}
               handleAddProduct={handleAddProduct}
               handleUpdateProduct={handleUpdateProduct}
-            />
-          </div>
-        </div>
-      )}
-
-      {isReviewModalVisible && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="close-button" onClick={handleCloseModal}>X</button>
-            <SellerReviewForm
-              sellerId={seller.id}
-              user={user}
-              onSubmit={(review) => {
-                handleCloseModal();
-              }}
             />
           </div>
         </div>
