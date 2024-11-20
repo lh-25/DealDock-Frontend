@@ -95,10 +95,10 @@ const ProductList = (props) => {
         {products.map((product, index) => (
           <div key={product.id || product._id || index} className="product-card">
             <div onClick={() => handleProductClick(product)}>
-              <img src={product.image} alt={product.name} className="product-image" />
+              <img src={product.imgURL} alt={product.name} className="product-image" />
               <div className="product-info">
                 <p>{product.name}</p>
-                <p>{product.price}</p>
+                <p>${product.buyNowPrice}</p>
               </div>
             </div>
             <button onClick={() => handleEditProductClick(product)}>Edit Product</button>

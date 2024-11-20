@@ -87,7 +87,7 @@ const ProductDetails = () => {
       <div className="product-info">
         <dl>
           <dt>Seller:</dt>
-          <dd>{selectedProduct.seller.username ? selectedProduct.seller.username : user.username}</dd>
+          <dd>{selectedProduct.seller.username || 'Unknown'}</dd>
           <dt>Description:</dt>
           <dd>{selectedProduct.description}</dd>
           <dt>Starting Price:</dt>
