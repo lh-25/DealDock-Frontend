@@ -31,16 +31,15 @@ const ProductDetails = () => {
     fetchProduct()
   }, [id])
 
-  
   const handleBidSubmit = async (e) => {
     e.preventDefault()
-  
+
     const bidValue = parseFloat(newBid)
     if (isNaN(bidValue) || bidValue <= (selectedProduct?.currentBid || selectedProduct.startingBid)) {
       alert('Please enter a bid higher than the current bid or starting price.')
       return
     }
-  
+
     try {
       const response = await axios.patch(
         `http://localhost:3002/products/${id}/bid`,
@@ -51,11 +50,11 @@ const ProductDetails = () => {
           },
         }
       )
-      
+
       setSelectedProduct((prevState) => ({
         ...prevState,
         ...response.data, // Update fields returned from the server
-        seller: prevState.seller, // Preserve seller data
+        seller: prevState.seller || response.data.seller, // Preserve seller data if not updated
       }))
       setNewBid('')
     } catch (error) {
@@ -67,7 +66,6 @@ const ProductDetails = () => {
       }
     }
   }
-  
 
   const handleCommentAdded = (newComment) => {
     setSelectedProduct((prevState) => ({
@@ -93,7 +91,7 @@ const ProductDetails = () => {
       <div className="product-info">
         <dl>
           <dt>Seller:</dt>
-          <dd>{selectedProduct.seller.username || 'Unknown'}</dd>
+          <dd>{selectedProduct.seller?.username || 'Unknown'}</dd>
           <dt>Description:</dt>
           <dd>{selectedProduct.description}</dd>
           <dt>Starting Price:</dt>
