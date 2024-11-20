@@ -10,15 +10,25 @@ const ProductDetails = () => {
   const [newBid, setNewBid] = useState('');
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3002/products/${id}`)
-      .then((response) => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3002/products/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
         setSelectedProduct(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('Error fetching product:', error);
-      })
-      .finally(() => setLoading(false));
+        if (error.response?.status === 403) {
+          alert('You are not authorized to view this product.');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
 
   const handleBidSubmit = async (e) => {
@@ -56,7 +66,7 @@ const ProductDetails = () => {
       <div className="product-info">
         <dl>
           <dt>Seller:</dt>
-          <dd>{selectedProduct.seller?.username || 'Unknown'}</dd>
+          <dd>{selectedProduct.seller.username ? seller.username : 'Unknown'}</dd>
           <dt>Description:</dt>
           <dd>{selectedProduct.description}</dd>
           <dt>Starting Price:</dt>

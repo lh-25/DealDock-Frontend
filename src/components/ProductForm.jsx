@@ -12,7 +12,7 @@ const ProductForm = (props) => {
     imgURL: ''
   };
   
-  // formData state to control the form
+ 
   const [formData, setFormData] = useState(initialState);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const ProductForm = (props) => {
     if (productId) getProduct();
   }, [productId]);
 
-  // handleChange function to update formData state
+  
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
