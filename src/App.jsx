@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from 'react'
 import './App.css'
-import './AccountCreation.css'
+
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 import AccountCreation from './components/AccountCreation'
