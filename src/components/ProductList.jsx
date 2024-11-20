@@ -28,8 +28,16 @@ const ProductList = ({ seller, user }) => {
   };
 
   const handleEditProductClick = async (product) => {
+    const productId = product.id || product._id;
+    if (!productId) {
+      console.error('Invalid product data:', product);
+      return;
+    }
+    
     try {
-      const productData = await productService.show(product.id);
+      console.log('Fetching product details for:', productId);
+      const productData = await productService.show(productId);
+      console.log('Fetched product data:', productData);
       setSelectedProduct(productData);
       setIsModalVisible(true);
     } catch (error) {
@@ -61,7 +69,7 @@ const ProductList = ({ seller, user }) => {
       const updated = await productService.update(productId, updatedProduct);
       setProducts(prevProducts =>
         prevProducts.map(product =>
-          product.id === productId ? updated : product
+          product.id === productId || product._id === productId ? updated : product
         )
       );
       handleCloseModal();
@@ -73,7 +81,7 @@ const ProductList = ({ seller, user }) => {
   const handleDeleteProduct = async (productId) => {
     try {
       await productService.deleteProduct(productId);
-      setProducts(prevProducts => prevProducts.filter(product => product.id !== productId));
+      setProducts(prevProducts => prevProducts.filter(product => product.id !== productId && product._id !== productId));
     } catch (error) {
       console.error('Error deleting product:', error);
     }
@@ -86,7 +94,7 @@ const ProductList = ({ seller, user }) => {
       <button onClick={handleAddReviewClick}>Leave a Review</button>
       <div className="product-grid">
         {products.map((product, index) => (
-          <div key={product.id || index} className="product-card">
+          <div key={product.id || product._id || index} className="product-card">
             <div onClick={() => handleEditProductClick(product)}>
               <img src={product.image} alt={product.name} className="product-image" />
               <div className="product-info">
@@ -95,7 +103,7 @@ const ProductList = ({ seller, user }) => {
               </div>
             </div>
             <button onClick={() => handleEditProductClick(product)}>Edit Product</button>
-            <button onClick={() => handleDeleteProduct(product.id)}>Delete Product</button>
+            <button onClick={() => handleDeleteProduct(product.id || product._id)}>Delete Product</button>
           </div>
         ))}
       </div>
@@ -118,7 +126,7 @@ const ProductList = ({ seller, user }) => {
           <div className="modal-content">
             <button className="close-button" onClick={handleCloseModal}>X</button>
             <SellerReviewForm
-              sellerId={seller.id} // Assuming seller has an 'id' property
+              sellerId={seller.id}
               user={user}
               onSubmit={(review) => {
                 handleCloseModal();
