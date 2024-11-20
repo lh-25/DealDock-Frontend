@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductForm from './ProductForm';
 import * as productService from '../services/productService';
 
@@ -6,6 +7,7 @@ const ProductList = (props) => {
   const [products, setProducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,6 +41,11 @@ const ProductList = (props) => {
     } catch (error) {
       console.error('Error fetching product:', error);
     }
+  };
+
+  const handleProductClick = (product) => {
+    const productId = product.id || product._id;
+    navigate(`/productDetails/${productId}`);
   };
 
   const handleCloseModal = () => {
@@ -87,7 +94,7 @@ const ProductList = (props) => {
       <div className="product-grid">
         {products.map((product, index) => (
           <div key={product.id || product._id || index} className="product-card">
-            <div onClick={() => handleEditProductClick(product)}>
+            <div onClick={() => handleProductClick(product)}>
               <img src={product.image} alt={product.name} className="product-image" />
               <div className="product-info">
                 <p>{product.name}</p>
