@@ -13,7 +13,7 @@ const ProductForm = (props) => {
   };
   
  
-  const [formData, setFormData] = useState(initialState);
+  const [formData, setFormData] = useState(props.selected ? props.selected : initialState);
 
   useEffect(() => {
     const getProduct = async () => {
