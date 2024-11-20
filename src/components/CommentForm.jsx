@@ -10,14 +10,20 @@ function CommentForm({ productId, onCommentAdded }) {
     setError('')
 
     try {
-   
-      const response = await axios.post(`/ProductList/${productId}/comments`, { text })
-      
-     
-      setText('')
-      if (onCommentAdded) onCommentAdded(response.data)
+      const response = await axios.post(
+        `http://localhost:3002/products/${productId}/comments`,
+        { text },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+
+      setText('');
+      if (onCommentAdded) onCommentAdded(response.data);
     } catch (err) {
-      console.error(err)
+      console.error(err);
       setError('Failed to add comment. Please try again.')
     }
   }

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import CommentForm from './CommentForm';
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import CommentForm from './CommentForm'
 
 const ProductDetails = () => {
-  const { id } = useParams();
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [newBid, setNewBid] = useState('');
+  const { id } = useParams()
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [newBid, setNewBid] = useState('')
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -16,45 +16,58 @@ const ProductDetails = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        });
-        setSelectedProduct(response.data);
+        })
+        setSelectedProduct(response.data)
       } catch (error) {
         console.error('Error fetching product:', error);
         if (error.response?.status === 403) {
-          alert('You are not authorized to view this product.');
+          alert('You are not authorized to view this product.')
         }
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchProduct();
-  }, [id]);
+    fetchProduct()
+  }, [id])
 
   const handleBidSubmit = async (e) => {
     e.preventDefault();
 
     const bidValue = parseFloat(newBid);
     if (isNaN(bidValue) || bidValue <= (selectedProduct?.currentBid || selectedProduct.startingBid)) {
-      alert('Please enter a bid higher than the current bid or starting price.');
-      return;
+      alert('Please enter a bid higher than the current bid or starting price.')
+      return
     }
 
     try {
-      const response = await axios.patch(`http://localhost:3002/products/${id}/bid`, { bid: bidValue });
-      setSelectedProduct(response.data); // Update with the new data from the backend
-      setNewBid('');
+      const response = await axios.patch(
+        `http://localhost:3002/products/${id}/bid`,
+        { bid: bidValue },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      setSelectedProduct(response.data);
+      setNewBid('')
     } catch (error) {
-      console.error('Error submitting bid:', error);
+      console.error('Error submitting bid:', error)
+      if (error.response?.status === 403) {
+        alert('You are not authorized to submit a bid. Please log in or provide a valid token.')
+      } else {
+        alert('An error occurred while submitting your bid. Please try again.')
+      }
     }
   };
 
   if (loading) {
-    return <p>Loading product details...</p>;
+    return <p>Loading product details...</p>
   }
 
   if (!selectedProduct) {
-    return <p>Product not found</p>;
+    return <p>Product not found</p>
   }
 
   return (
@@ -124,7 +137,7 @@ const ProductDetails = () => {
         <CommentForm productId={id} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductDetails;
+export default ProductDetails
