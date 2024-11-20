@@ -11,8 +11,7 @@ const ProductForm = (props) => {
     startingBid: '',
     imgURL: ''
   };
-  
- 
+
   const [formData, setFormData] = useState(props.selected ? props.selected : initialState);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const ProductForm = (props) => {
           name: productData.name || '',
           description: productData.description || '',
           buyNowPrice: productData.buyNowPrice || '',
-          startingPrice: productData.startingPrice || '',
+          startingBid: productData.startingBid || '',
           imgURL: productData.imgURL || ''
         });
       }
@@ -32,15 +31,14 @@ const ProductForm = (props) => {
     if (productId) getProduct();
   }, [productId]);
 
-  
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
   const handleSubmitForm = (evt) => {
     evt.preventDefault();
-    if (productId) {
-      props.handleUpdateProduct(formData, productId);
+    if (props.selected) {
+      props.handleUpdateProduct(formData, props.selected.id || props.selected._id);
     } else {
       props.handleAddProduct(formData);
     }
@@ -49,7 +47,7 @@ const ProductForm = (props) => {
   return (
     <div>
       <form onSubmit={handleSubmitForm}>
-        <h1>{productId ? 'Edit Product' : 'New Product'}</h1>
+        <h1>{props.selected || productId ? 'Edit Product' : 'New Product'}</h1>
         
         <label htmlFor="name"> Name </label>
         <input
@@ -92,7 +90,7 @@ const ProductForm = (props) => {
           onChange={handleChange}
         />
         
-        <button type="submit">{productId ? 'Update Product' : 'Add New Product'}</button>
+        <button type="submit">{props.selected || productId ? 'Update Product' : 'Add New Product'}</button>
       </form>
     </div>
   );
