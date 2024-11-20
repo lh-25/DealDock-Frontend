@@ -70,6 +70,15 @@ const ProductList = ({ seller, user }) => {
     }
   };
 
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await productService.deleteProduct(productId);
+      setProducts(prevProducts => prevProducts.filter(product => product.id !== productId));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
+
   return (
     <div className="product-list">
       <h2>Your Products</h2>
@@ -86,6 +95,7 @@ const ProductList = ({ seller, user }) => {
               </div>
             </div>
             <button onClick={() => handleEditProductClick(product)}>Edit Product</button>
+            <button onClick={() => handleDeleteProduct(product.id)}>Delete Product</button>
           </div>
         ))}
       </div>
