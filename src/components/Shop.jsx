@@ -13,7 +13,7 @@ export default function Shop({ products }) {
           <div>
             <img src={product.imgURL} alt='product image' />
             <h2>{product.name}</h2>
-            <p> ${product.buyNowprice}</p>
+            <p> ${product.buyNowPrice}</p>
           </div>
         </Link>
       ))}

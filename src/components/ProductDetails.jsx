@@ -31,15 +31,16 @@ const ProductDetails = () => {
     fetchProduct()
   }, [id])
 
+  
   const handleBidSubmit = async (e) => {
     e.preventDefault()
-
-    const bidValue = parseFloat(newBid);
+  
+    const bidValue = parseFloat(newBid)
     if (isNaN(bidValue) || bidValue <= (selectedProduct?.currentBid || selectedProduct.startingBid)) {
       alert('Please enter a bid higher than the current bid or starting price.')
-      return;
+      return
     }
-
+  
     try {
       const response = await axios.patch(
         `http://localhost:3002/products/${id}/bid`,
@@ -50,7 +51,12 @@ const ProductDetails = () => {
           },
         }
       )
-      setSelectedProduct(response.data)
+      
+      setSelectedProduct((prevState) => ({
+        ...prevState,
+        ...response.data, // Update fields returned from the server
+        seller: prevState.seller, // Preserve seller data
+      }))
       setNewBid('')
     } catch (error) {
       console.error('Error submitting bid:', error)
@@ -61,12 +67,12 @@ const ProductDetails = () => {
       }
     }
   }
-
   
+
   const handleCommentAdded = (newComment) => {
     setSelectedProduct((prevState) => ({
       ...prevState,
-      comments: [newComment, ...prevState.comments], 
+      comments: [newComment, ...prevState.comments],
     }))
   }
 
