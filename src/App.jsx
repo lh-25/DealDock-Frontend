@@ -21,6 +21,7 @@ export const AuthedUserContext = createContext()
 const App = () => {
   const [user, setUser] = useState(null)
   const [products, setProducts] = useState([])
+  const [startingBid, setStartingBid] = useState([])
   const navigate = useNavigate()
 
 
@@ -93,7 +94,7 @@ const App = () => {
           <Route path="/AccountCreation" element={<AccountCreation  setUser={setUser} />}/>
           <Route
             path="/products"
-            element={<ProductList products={products} handleDeleteProduct={handleDeleteProduct} />}
+            element={<ProductList products={products} handleAddProduct={handleAddProduct} handleDeleteProduct={handleDeleteProduct} />}
           />
           <Route
             path="/productDetails/:id"

@@ -1,58 +1,50 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import axios from 'axios'
-import CommentForm from './CommentForm'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import CommentForm from './CommentForm';
 
-const ProductDetails = ({ products }) => {
-  const { id } = useParams()
-  const [selectedProduct, setSelectedProduct] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [currentPrice, setCurrentPrice] = useState(null)
-  const [newBid, setNewBid] = useState('')
+const ProductDetails = () => {
+  const { id } = useParams();
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [newBid, setNewBid] = useState('');
 
   useEffect(() => {
-    
-    const localProduct = products.find((product) => product._id === id)
+    axios
+      .get(`http://localhost:3002/products/${id}`)
+      .then((response) => {
+        setSelectedProduct(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching product:', error);
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
 
-    if (localProduct) {
-      setSelectedProduct(localProduct)
-      setCurrentPrice(localProduct.price)
-      setLoading(false)
-    } else {
-      
-      axios
-        .get(`http://localhost:3002/products/${id}`)
-        .then((response) => {
-          setSelectedProduct(response.data)
-          setCurrentPrice(response.data.price)
-        })
-        .catch((error) => {
-          console.error('Error fetching product:', error)
-        })
-        .finally(() => setLoading(false))
-    }
-  }, [id, products])
+  const handleBidSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleBidSubmit = (e) => {
-    e.preventDefault()
-
-    const bidValue = parseFloat(newBid)
-
-    if (isNaN(bidValue) || bidValue <= currentPrice) {
-      alert('Please enter a bid higher than the current price.')
-      return
+    const bidValue = parseFloat(newBid);
+    if (isNaN(bidValue) || bidValue <= (selectedProduct?.currentBid || selectedProduct.startingBid)) {
+      alert('Please enter a bid higher than the current bid or starting price.');
+      return;
     }
 
-    setCurrentPrice(bidValue)
-    setNewBid('')
-  }
+    try {
+      const response = await axios.patch(`http://localhost:3002/products/${id}/bid`, { bid: bidValue });
+      setSelectedProduct(response.data); // Update with the new data from the backend
+      setNewBid('');
+    } catch (error) {
+      console.error('Error submitting bid:', error);
+    }
+  };
 
   if (loading) {
-    return <p>Loading product details...</p>
+    return <p>Loading product details...</p>;
   }
 
   if (!selectedProduct) {
-    return <p>Product not found</p>
+    return <p>Product not found</p>;
   }
 
   return (
@@ -63,20 +55,16 @@ const ProductDetails = ({ products }) => {
       </div>
       <div className="product-info">
         <dl>
-          {selectedProduct.seller ? (
-            <>
-              <dt>Seller:</dt>
-              <dd>{selectedProduct.seller.username}</dd>
-            </>
-          ) : null}
+          <dt>Seller:</dt>
+          <dd>{selectedProduct.seller?.username || 'Unknown'}</dd>
           <dt>Description:</dt>
           <dd>{selectedProduct.description}</dd>
-          {/* <dt>Starting Price:</dt>
-          <dd>${startingPrice.toFixed(2)}</dd> */}
-          <dt>Current Price:</dt>
-          <dd>${currentPrice.toFixed(2)}</dd>
-          {/* <dt>Buy Now:</dt>
-          <dd>${buyNowPrice.toFixed(2)}</dd> */}
+          <dt>Starting Price:</dt>
+          <dd>${selectedProduct.startingBid.toFixed(2)}</dd>
+          <dt>Current Bid:</dt>
+          <dd>${(selectedProduct.currentBid || selectedProduct.startingBid).toFixed(2)}</dd>
+          <dt>Buy Now Price:</dt>
+          <dd>${selectedProduct.buyNowPrice.toFixed(2)}</dd>
         </dl>
       </div>
       <form onSubmit={handleBidSubmit}>
@@ -98,12 +86,25 @@ const ProductDetails = ({ products }) => {
             {selectedProduct.comments.map((comment) => (
               <li key={comment._id}>
                 <p>
-                  <strong>{comment.author?.username || 'Anonymous'}:</strong>{' '}
-                  {comment.text}
+                  <strong>{comment.author?.username || 'Anonymous'}:</strong> {comment.text}
                 </p>
                 <small>
                   Posted on {new Date(comment.createdAt).toLocaleString()}
                 </small>
+                {comment.replies.length > 0 && (
+                  <ul>
+                    {comment.replies.map((reply) => (
+                      <li key={reply._id}>
+                        <p>
+                          <strong>{reply.author?.username || 'Anonymous'}:</strong> {reply.text}
+                        </p>
+                        <small>
+                          Posted on {new Date(reply.createdAt).toLocaleString()}
+                        </small>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
@@ -113,7 +114,7 @@ const ProductDetails = ({ products }) => {
         <CommentForm productId={id} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductDetails
+export default ProductDetails;

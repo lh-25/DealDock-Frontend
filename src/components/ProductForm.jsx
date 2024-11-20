@@ -1,41 +1,56 @@
-// src/components/PetForm.jsx
-
-import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import * as productService from '../services/productService';
 
 const ProductForm = (props) => {
+  const { productId } = useParams();
   const initialState = {
     name: '',
     description: '',
-    price: '',
-    imgURL: '',
-    seller: ''
-  }
+    buyNowPrice: '',
+    startingBid: '',
+    imgURL: ''
+  };
+  
   // formData state to control the form
-  const [formData, setFormData] = useState(props.selected ? props.selected : initialState)
+  const [formData, setFormData] = useState(initialState);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      const productData = await productService.show(productId);
+      if (productData) {
+        setFormData({
+          name: productData.name || '',
+          description: productData.description || '',
+          buyNowPrice: productData.buyNowPrice || '',
+          startingPrice: productData.startingPrice || '',
+          imgURL: productData.imgURL || ''
+        });
+      }
+    };
+
+    if (productId) getProduct();
+  }, [productId]);
 
   // handleChange function to update formData state
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
-const handleSubmitForm = (evt) => {
-    evt.preventDefault()
-    if (props.selected) {
-      props.handleUpdateProduct(formData, props.selected._id)
+  const handleSubmitForm = (evt) => {
+    evt.preventDefault();
+    if (productId) {
+      props.handleUpdateProduct(formData, productId);
     } else {
-      props.handleAddProduct(formData)
+      props.handleAddProduct(formData);
     }
-
-    setFormData({ name: '',
-        description: '',
-        price: '',
-        imgURL: '',
-        seller: ''})
-}
+  };
 
   return (
     <div>
       <form onSubmit={handleSubmitForm}>
+        <h1>{productId ? 'Edit Product' : 'New Product'}</h1>
+        
         <label htmlFor="name"> Name </label>
         <input
           id="name"
@@ -44,6 +59,7 @@ const handleSubmitForm = (evt) => {
           onChange={handleChange}
           required
         />
+        
         <label htmlFor="description"> Description </label>
         <input
           id="description"
@@ -51,13 +67,23 @@ const handleSubmitForm = (evt) => {
           value={formData.description}
           onChange={handleChange}
         />
-        <label htmlFor="price"> Price </label>
+        
+        <label htmlFor="buyNowPrice"> Buy Now Price </label>
         <input
-          id="price"
-          name="price"
-          value={formData.price}
+          id="buyNowPrice"
+          name="buyNowPrice"
+          value={formData.buyNowPrice}
           onChange={handleChange}
         />
+        
+        <label htmlFor="startingBid"> Starting Bid </label>
+        <input
+          id="startingBid"
+          name="startingBid"
+          value={formData.startingBid}
+          onChange={handleChange}
+        />
+        
         <label htmlFor="imgURL"> Image URL </label>
         <input
           id="imgURL"
@@ -65,14 +91,8 @@ const handleSubmitForm = (evt) => {
           value={formData.imgURL}
           onChange={handleChange}
         />
-        <label htmlFor="seller"> Seller </label>
-        <input
-          id="Seller"
-          name="Seller"
-          value={formData.Seller}
-          onChange={handleChange}
-        />
-        <button type="submit">{props.selected ? 'Update Product' : 'Add New Product'}</button>
+        
+        <button type="submit">{productId ? 'Update Product' : 'Add New Product'}</button>
       </form>
     </div>
   );
