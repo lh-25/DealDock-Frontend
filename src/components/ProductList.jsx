@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import ProductForm from './ProductForm';
 import SellerReviewForm from './ReviewForm';
+import * as productService from '../services/productService';
 
 const ProductList = ({ seller, user }) => {
   const [products, setProducts] = useState([]);
@@ -10,15 +10,16 @@ const ProductList = ({ seller, user }) => {
   const [isReviewModalVisible, setIsReviewModalVisible] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:3002/my-products')
-      .then(response => {
-        if (response.data.length === 0) {
-          setProducts([]);
-        } else {
-          setProducts(response.data);
-        }
-      })
-      .catch(error => console.error('Error fetching products:', error));
+    const fetchProducts = async () => {
+      try {
+        const products = await productService.indexProductsbySeller();
+        setProducts(products);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
   }, [seller]);
 
   const handleAddProductClick = () => {
@@ -26,9 +27,14 @@ const ProductList = ({ seller, user }) => {
     setIsModalVisible(true);
   };
 
-  const handleEditProductClick = (product) => {
-    setSelectedProduct(product);
-    setIsModalVisible(true);
+  const handleEditProductClick = async (product) => {
+    try {
+      const productData = await productService.show(product.id);
+      setSelectedProduct(productData);
+      setIsModalVisible(true);
+    } catch (error) {
+      console.error('Error fetching product:', error);
+    }
   };
 
   const handleAddReviewClick = () => {
@@ -40,18 +46,28 @@ const ProductList = ({ seller, user }) => {
     setIsReviewModalVisible(false);
   };
 
-  const handleAddProduct = (product) => {
-    setProducts(prevProducts => [...prevProducts, product]);
-    handleCloseModal();
+  const handleAddProduct = async (product) => {
+    try {
+      const newProduct = await productService.create(product);
+      setProducts(prevProducts => [...prevProducts, newProduct]);
+      handleCloseModal();
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
   };
 
-  const handleUpdateProduct = (updatedProduct, productId) => {
-    setProducts(prevProducts =>
-      prevProducts.map(product =>
-        product.id === productId ? updatedProduct : product
-      )
-    );
-    handleCloseModal();
+  const handleUpdateProduct = async (updatedProduct, productId) => {
+    try {
+      const updated = await productService.update(productId, updatedProduct);
+      setProducts(prevProducts =>
+        prevProducts.map(product =>
+          product.id === productId ? updated : product
+        )
+      );
+      handleCloseModal();
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
   };
 
   return (
