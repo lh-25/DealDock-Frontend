@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import * as authService from '../services/authService'
 import './LandingPage.css'
 
+export default function LandingPage({ setUser }) {
+  const navigate = useNavigate()
+  const [message, setMessage] = useState([''])
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  })
 
-export default function Login() {
-  const [formData, setFormData] = useState({ username: '', password: '' });
-  const [message, setMessage] = useState('');
+  const updateMessage = (msg) => {
+    setMessage(msg)
+  }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    updateMessage('')
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const user = await authService.signin(formData)
+      setUser(user)
+      navigate('/shop')
+    } catch (err) {
+      updateMessage(err.message)
+    }
+  }
 
   return (
     <main className="login">
