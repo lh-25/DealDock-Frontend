@@ -1,18 +1,24 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import "../components/navBar.css";
 
 const NavBar = ({ user, handleLogout }) => {
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   const handleLogoutAndRedirect = () => {
     handleLogout();
-    navigate('/login')
-  }
+    navigate('/login');
+  };
+
   return (
     <nav className="navbar">
+      <div className="logo-container">
+        <Link to="/Shop">
+          <img src="public/deal-dock-logo.png" alt="Logo" className="logo" />
+        </Link>
+      </div>
       <div className="navbar-links">
-        <Link to="/Shop">Shop</Link>
+        <Link to="/Shop">Shop</Link> {/* Shop Link */}
         <Link to="/products">Products</Link>
         {user ? (
           <>
@@ -26,7 +32,7 @@ const NavBar = ({ user, handleLogout }) => {
         )}
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;

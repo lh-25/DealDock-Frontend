@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as authService from '../services/authService';
 import { useNavigate }  from 'react-router-dom'
-import './AccountCreation'
+import "../components/accountCreation.css"
 
 
 
