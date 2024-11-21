@@ -33,10 +33,9 @@ export default function LandingPage({ setUser }) {
 
   return (
     <main className="login">
-      <div className="login-form">
         <h2>Log In</h2>
         <p>{message}</p>
-        <form className="login" autoComplete="off" onSubmit={handleSubmit}>
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">Username:</label>
             <input
@@ -67,7 +66,6 @@ export default function LandingPage({ setUser }) {
             <Link to={'/AccountCreation'}>Create an Account</Link>
           </div>
         </form>
-      </div>
 
     </main>
   )
