@@ -19,10 +19,9 @@ export default function Login() {
 
   return (
     <main className="login">
-      <div className="login-form">
         <h2>Log In</h2>
         <p>{message}</p>
-        <form className="login" autoComplete="off" onSubmit={handleSubmit}>
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">Username:</label>
             <input
@@ -53,7 +52,6 @@ export default function Login() {
             <Link to={'/AccountCreation'}>Create an Account</Link>
           </div>
         </form>
-      </div>
 
     </main>
   )
