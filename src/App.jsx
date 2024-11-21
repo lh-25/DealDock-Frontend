@@ -20,24 +20,9 @@ import * as productService from './services/productService'
 export const AuthedUserContext = createContext()
 
 const App = () => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(authService.getUser())
   const [products, setProducts] = useState([])
-  const [startingBid, setStartingBid] = useState([])
   const navigate = useNavigate()
-
-
-  const fetchUser = () => {
-    const currentUser = authService.getUser();
-    if (currentUser) {
-      setUser(currentUser);
-    } else {
-      console.log('No valid user found.');
-    }
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, [])
 
 
   useEffect(() => {
@@ -48,16 +33,7 @@ const App = () => {
       }
     }
     fetchProducts()
-  })
-
-  const handleLogin = async (email, password) => {
-    try {
-      const loggedInUser = await authService.login(email, password)
-      setUser(loggedInUser)
-    } catch (error) {
-      console.error("Login failed", error)
-    }
-  }
+  }, [])
 
 
   const handleLogout = () => {
@@ -86,7 +62,7 @@ const App = () => {
   }
 
   return (
-    <AuthedUserContext.Provider value={{ user, handleLogin, handleLogout }}>
+    <AuthedUserContext.Provider value={{ user, handleLogout }}>
       <div>
         <NavBar user={user} handleLogout={handleLogout} />
         <Routes>

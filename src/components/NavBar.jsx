@@ -10,6 +10,8 @@ const NavBar = ({ user, handleLogout }) => {
     navigate('/login')
   };
 
+
+
   return (
     <>
     <nav className="navbar">
@@ -22,12 +24,12 @@ const NavBar = ({ user, handleLogout }) => {
         <Link to="/Shop">Shop</Link>
         <Link to="/products">Products</Link>
         {user ? (
-          <>
-            <span>Welcome, {user.username}!</span>
+          <div className="welcome-message">
+            <span>Welcome, {user?.username}!</span>
             <button className="logout-button" onClick={handleLogoutAndRedirect}>
               Sign Out
             </button>
-          </>
+          </div>
         ) : (
           <Link to="/login">Login</Link>
         )}
