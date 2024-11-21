@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import "../components/navBar.css";
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import "../components/navBar.css"
 
 const NavBar = ({ user, handleLogout }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleLogoutAndRedirect = () => {
-    handleLogout();
-    navigate('/login');
+    handleLogout()
+    navigate('/login')
   };
 
   return (
@@ -18,7 +18,7 @@ const NavBar = ({ user, handleLogout }) => {
         </Link>
       </div>
       <div className="navbar-links">
-        <Link to="/Shop">Shop</Link> {/* Shop Link */}
+        <Link to="/Shop">Shop</Link>
         <Link to="/products">Products</Link>
         {user ? (
           <>
@@ -32,7 +32,7 @@ const NavBar = ({ user, handleLogout }) => {
         )}
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar
