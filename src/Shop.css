@@ -1,0 +1,44 @@
+body {
+    background-color: #6a8ba3;
+}
+
+h1 {
+    color: #3c3c3c;
+}
+
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.productContainer {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   margin: 15px;
+   padding: 15px;
+   width: 150px;
+   border-radius: 10px;
+   background-color: #d97a4a;
+}
+
+.productContainer img {
+    width: 150px;
+}
+
+.productContainer h2,
+.productContainer p {
+    background-color: #d97a4a;
+    color: #3c3c3c;
+}
+
+.productContainer:hover {
+    transform: scale(1.05);
+    background-color: #c4922b;
+}
+
+.productContainer:hover h2,
+.productContainer:hover p {
+    background-color: #c4922b; /* Change to the desired color */
+}
