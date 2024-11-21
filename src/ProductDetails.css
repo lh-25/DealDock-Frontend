@@ -31,8 +31,7 @@
   .product-details .product-info {
     width: 100%;
     max-width: 600px;
-    text-align: left; 
-    margin-top: 20px; 
+    margin-top: 10rem; 
   }
   
   .product-details .product-info dl dt {

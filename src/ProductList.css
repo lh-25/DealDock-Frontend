@@ -43,7 +43,7 @@ body {
   }
   
   .product-card:hover {
-    background-color: #c78d19;
+    cursor: pointer
   }
   
   .product-image {
@@ -72,6 +72,9 @@ body {
     background-color: #C4922B;
   }
   
+  .close-button {
+    text-align: left;
+  }
 
   @media (max-width: 768px) {
     .product-card {

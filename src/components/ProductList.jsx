@@ -92,6 +92,18 @@ const ProductList = (props) => {
     <div className="product-list">
       <h2>Your Products</h2>
       <button onClick={handleAddProductClick}>Add New Product</button>
+      {isModalVisible && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <ProductForm
+              selected={selectedProduct}
+              handleAddProduct={handleAddProduct}
+              handleUpdateProduct={handleUpdateProduct}
+              handleCloseModal={handleCloseModal}
+            />
+          </div>
+        </div>
+      )}
       <div className="product-grid">
         {products.map((product, index) => (
           <div key={product.id || product._id || index} className="product-card">
@@ -107,19 +119,6 @@ const ProductList = (props) => {
           </div>
         ))}
       </div>
-
-      {isModalVisible && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="close-button" onClick={handleCloseModal}>X</button>
-            <ProductForm
-              selected={selectedProduct}
-              handleAddProduct={handleAddProduct}
-              handleUpdateProduct={handleUpdateProduct}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
