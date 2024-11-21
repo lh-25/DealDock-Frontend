@@ -14,7 +14,7 @@ body {
   color: #3C3C3C;
 }
 
-main {
+.login{
   background-color: white;
   padding: 30px;
   border-radius: 10px;
@@ -22,7 +22,7 @@ main {
   border: 1px solid #d3d3d3; 
 }
 
-h1 {
+h2.login {
   text-align: center;
   color: #8B5E3C;
   font-size: 2rem;
@@ -108,7 +108,3 @@ a:hover {
 button:focus {
   border: 2px solid #4C6578;
 }
-
-
-
-
