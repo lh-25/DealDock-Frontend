@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as productService from '../services/productService';
+import './ProductForm.css'
 
 const ProductForm = (props) => {
   const { productId } = useParams();

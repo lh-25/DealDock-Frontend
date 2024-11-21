@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import * as authService from '../services/authService'
+import './LandingPage.css'
 
 export default function LandingPage({ setUser }) {
   const navigate = useNavigate()
@@ -58,9 +59,9 @@ export default function LandingPage({ setUser }) {
           />
         </div>
         <div>
-          <button>Log In</button>
+          <button className="login-button">Log In</button>
           <Link to="/">
-            <button>Cancel</button>
+            <button className="cancel-button">Cancel</button>
           </Link>
           <Link to={'/AccountCreation'}>Create an Account</Link>
         </div>
