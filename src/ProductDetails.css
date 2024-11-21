@@ -1,0 +1,126 @@
+.product-details {
+    padding: 20px;
+    background-color: #F7F1E5;
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .product-details h2 {
+    color: #8B5E3C;
+    text-align: center;
+  }
+  
+  .product-details .product-image {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+  
+  .product-details .product-image img {
+    width: 100%;
+    height: auto; 
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .product-details .product-info {
+    width: 100%;
+    max-width: 600px;
+    text-align: left; 
+    margin-top: 20px; 
+  }
+  
+  .product-details .product-info dl dt {
+    font-weight: bold;
+  }
+  
+  .product-details .product-info dl dd {
+    margin: 0 0 10px;
+  }
+  
+  .product-details form {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .product-details label {
+    color: #8B5E3C;
+  }
+  
+  .product-details input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #D3D3D3;
+    border-radius: 4px;
+  }
+  
+  .product-details input:focus {
+    border-color: #D97A4A;
+  }
+  
+  .product-details button {
+    background-color: #D9A441;
+    color: #F7F1E5;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .product-details button:hover {
+    background-color: #C4922B;
+  }
+  
+  .product-comments {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px; 
+  }
+  
+  .product-comments h3 {
+    color: #8B5E3C; 
+  }
+  
+  .product-comments ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .product-comments ul li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #D3D3D3; 
+    padding-bottom: 10px;
+  }
+  
+  .product-comments ul li p {
+    margin: 5px 0;
+  }
+  
+  .product-comments ul li small {
+    color: #B0B0B0;
+  }
+  
+
+  @media (max-width: 768px) {
+    .product-details {
+      padding: 10px;
+    }
+  
+    .product-details .product-image {
+      max-width: 100%;
+    }
+  
+    .product-details .product-info {
+      text-align: center;
+    }
+  
+    .product-comments {
+      margin-top: 10px;
+    }
+  }
+  

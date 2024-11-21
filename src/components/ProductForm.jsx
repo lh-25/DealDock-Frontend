@@ -37,6 +37,19 @@ const ProductForm = (props) => {
 
   const handleSubmitForm = (evt) => {
     evt.preventDefault();
+
+    const missingFields = [];
+    if (!formData.name) missingFields.push('Name');
+    if (!formData.description) missingFields.push('Description');
+    if (!formData.buyNowPrice) missingFields.push('Buy Now Price');
+    if (!formData.startingBid) missingFields.push('Starting Bid');
+    if (!formData.imgURL) missingFields.push('Image URL');
+
+    if (missingFields.length > 0) {
+      alert(`Please fill in the following required fields: ${missingFields.join(', ')}`);
+      return;
+    }
+
     if (props.selected) {
       props.handleUpdateProduct(formData, props.selected.id || props.selected._id);
     } else {
