@@ -8,7 +8,7 @@ export default function Shop({ products }) {
 
   return (
     <main >
-      <h1>Shop the best deals, {user.username}</h1>
+      <h1>Shop the best deals, {user.username}!</h1>
      <div className='productGrid'>
             {products.map((product) => (
         <Link key={product._id} to={`/productDetails/${product._id}`}>
