@@ -20,8 +20,8 @@ const AccountCreation = (props) => {
         const formData = { username, password };
         try {
             const newUserResponse = await authService.signup(formData);
-            props.setUser(newUserResponse.user);
-            navigate('/login');
+            props.setUser(newUserResponse);
+            navigate('/Shop');
         } catch (err) {
             updateMessage(err.message);
         }

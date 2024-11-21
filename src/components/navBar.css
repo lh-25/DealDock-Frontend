@@ -54,7 +54,7 @@
     color: #F7F1E5;
     text-decoration: none;
     font-size: 1.1rem;
-    margin-right: 40px;
+    margin-right: 50px;
     padding: 10px 30px;
 }
 
@@ -74,7 +74,7 @@
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
-    margin-left: 120px;
+    margin-left: 300px;
 }
 
 .logout-button:hover {

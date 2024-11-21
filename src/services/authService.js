@@ -1,70 +1,76 @@
-// src/services/authService.js
-// Helper function to store and get the token
 const saveToken = (token) => localStorage.setItem('token', token);
 const getToken = () => localStorage.getItem('token');
 const clearToken = () => localStorage.removeItem('token');
-const BACKEND_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}`
-console.log('BACKEND_URL:', BACKEND_URL)
+const BACKEND_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}`;
+console.log('BACKEND_URL:', BACKEND_URL);
+import axios from "axios";
+
 
 const getUser = () => {
   const token = getToken();
   if (!token) return null;
+
   try {
-    const payload = JSON.parse(atob(token.split('.')[1])); // Decode the payload
-    return payload; // Return the decoded user information
+    
+    const payload = JSON.parse(atob(token.split('.')[1])); 
+    return payload; 
   } catch (err) {
     console.error('Invalid token:', err.message);
-    clearToken(); // Remove invalid token
+    clearToken(); 
     return null;
   }
 };
 
 const signup = async (formData) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/users/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-    const json = await res.json();
-    if (json.err) {
-      throw new Error(json.err);
-    } localStorage.setItem('token', json.token);
-    return json;
+    const res = await axios.post(`${BACKEND_URL}/users/signup`, formData)
+   
+    if (res.data.error) {
+      throw new Error(res.data.error)
+    }
+
+    if (res.data.token) {
+      localStorage.setItem('token', res.data.token)
+
+      const user = JSON.parse(atob(res.data.token.split('.')[1]))
+      return user
+    }
+    return res.data
+
   } catch (err) {
-    console.log(err);
-    throw err;
+    console.log(err)
+    throw err
   }
-};
+}
 
-
-const signin = async (formData) => {
+const signin = async (user) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/users/signin`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-    const json = await res.json();
-    if (json.error) throw new Error(json.error);
+    const res = await axios.post(`${BACKEND_URL}/users/signin`, user)
 
-    saveToken(json.token);
-    return json;
+    if (res.data.error) {
+      throw new Error(res.data.error)
+    }
+
+    if (res.data.token) {
+      localStorage.setItem('token', res.data.token)
+
+      const user = JSON.parse(atob(res.data.token.split('.')[1]))
+      return user
+    }
+
   } catch (err) {
-    console.log('Signin Error:', err);
-    throw err;
+    console.log(err)
+    throw err
   }
-};
+}
 
 
 
-// Function to sign out a user
 const signout = () => {
   clearToken();
-  console.log('User signed out successfully');
 };
 
-// Function to check if user is authenticated
+
 const isAuthenticated = () => !!getToken();
 
 export {
