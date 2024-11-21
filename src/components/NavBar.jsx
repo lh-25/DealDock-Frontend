@@ -13,12 +13,13 @@ const NavBar = ({ user, handleLogout }) => {
 
 
   return (
+    <>
     <nav className="navbar">
-      <div className="logo-container">
-        <Link to="/Shop">
-          <img src="public/deal-dock-logo.png" alt="Logo" className="logo" />
-        </Link>
-      </div>
+    <div className="logo-container">
+    <Link to="/Shop">
+      <img src="e51e4a5e-a210-40e7-9003-6d9e63d36964_720.png" alt="Logo" className="logo" />
+    </Link>
+  </div>
       <div className="navbar-links">
         <Link to="/Shop">Shop</Link>
         <Link to="/products">Products</Link>
@@ -34,6 +35,7 @@ const NavBar = ({ user, handleLogout }) => {
         )}
       </div>
     </nav>
+    </>
   )
 }
 

@@ -24,7 +24,7 @@ Deal Dock enables users to:
 - **Frontend**:
   - React.js
   - React Router
-  - Axios and Fetch API
+  - Axios
 
 ## 📈 Next Steps
 Here are some planned enhancements for Deal Dock:

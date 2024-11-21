@@ -61,6 +61,7 @@ const ProductForm = (props) => {
   return (
     <div>
       <form onSubmit={handleSubmitForm}>
+      <button className="close-button" onClick={props.handleCloseModal}>X</button>
         <h1>{props.selected || productId ? 'Edit Product' : 'New Product'}</h1>
         
         <label htmlFor="name"> Name </label>
