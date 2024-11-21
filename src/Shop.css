@@ -6,6 +6,7 @@ h1 {
     color: #3c3c3c;
     background-color: #f7f1e5;
     border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px #3c3c3c;
 }
 
 .productGrid {
@@ -24,6 +25,7 @@ h1 {
    height: 300px;
    border-radius: 10px;
    background-color: #d97a4a;
+   box-shadow: 1px 1px 1px 1px #3c3c3c;
 }
 
 .productContainer img {
