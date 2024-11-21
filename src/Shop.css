@@ -45,5 +45,5 @@ h1 {
 
 .productContainer:hover h2,
 .productContainer:hover p {
-    background-color: #c4922b; /* Change to the desired color */
+    background-color: #c4922b; 
 }
