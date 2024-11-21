@@ -4,6 +4,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+form {
+  border: none;         
+  box-shadow: none;     
+  outline: none;
+  background: none; }
 
 body {
   font-family: Arial, sans-serif;
@@ -15,14 +20,15 @@ body {
 }
 
 .login{
-  background-color: white;
+  background-color: #f7f1e5;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #d3d3d3; 
+  margin-top: 20px;
 }
 
-h2.login {
+h2 {
   text-align: center;
   color: #8B5E3C;
   font-size: 2rem;
@@ -38,12 +44,14 @@ p {
 
 div {
   margin-bottom: 20px;
+
 }
 
 label {
   font-weight: bold;
   display: block;
   margin-bottom: 5px;
+  padding: 10px;
   color: #555;
 }
 
@@ -90,7 +98,6 @@ button.cancel-button:hover {
   background-color: #B5653E;
 }
 
-
 a {
   display: inline-block;
   text-align: center;
@@ -107,4 +114,8 @@ a:hover {
 
 button:focus {
   border: 2px solid #4C6578;
+}
+form {
+  border: none;
+  outline: none;
 }
