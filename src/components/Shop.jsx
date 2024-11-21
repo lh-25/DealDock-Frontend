@@ -6,6 +6,10 @@ import '../Shop.css'
 export default function Shop({ products }) {
   const { user } = useContext(AuthedUserContext)
 
+  if (loading) {
+    return <p>Loading Shop Page...</p>
+  }
+
   return (
     <main >
       <h1>Shop the best deals, {user.username}!</h1>
