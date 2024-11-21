@@ -1,5 +1,4 @@
 # Deal Dock - Front-End
-
 Deal Dock is a full-stack MERN (MongoDB, Express, React, Node.js) application designed to facilitate buying, selling, and bidding on products. It includes full CRUD operations for products with secure JWT authentication. Users can interact with products, bid, comment, and manage their own listings.
 
 ## 📸 Logo
