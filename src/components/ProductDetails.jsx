@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import CommentForm from './CommentForm'
+import '../ProductDetails.css'
 
 const ProductDetails = () => {
   const { id } = useParams()
