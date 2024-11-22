@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext } from 'react'
 import './App.css'
 
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import AccountCreation from './components/AccountCreation'
 import Shop from './components/Shop'
@@ -10,10 +10,9 @@ import NavBar from './components/NavBar'
 import ProductDetails from './components/ProductDetails'
 import ProductForm from './components/ProductForm'
 import ProductList from './components/ProductList'
-import ReviewForm from './components/ReviewForm'
 import NotFound from './components/NotFound'
 
-import * as authService  from './services/authService'
+import * as authService from './services/authService'
 
 import * as productService from './services/productService'
 
@@ -27,7 +26,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if(user) {
+      if (user) {
         const productData = await productService.index();
         setProducts(productData);
       }
@@ -68,7 +67,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<LandingPage setUser={setUser} />} />
           <Route path="/Shop" element={<Shop products={products} user={user} />} />
-          <Route path="/AccountCreation" element={<AccountCreation  setUser={setUser} />}/>
+          <Route path="/AccountCreation" element={<AccountCreation setUser={setUser} />} />
           <Route
             path="/products"
             element={<ProductList products={products} handleAddProduct={handleAddProduct} handleDeleteProduct={handleDeleteProduct} />}
@@ -78,9 +77,7 @@ const App = () => {
             element={
               <ProductDetails
                 products={products}
-                renderReviewForm={(sellerId) => (
-                  <ReviewForm sellerId={sellerId} onSubmit={(review) => console.log(review)} />
-                )}
+
               />
             }
           />

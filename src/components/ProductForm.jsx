@@ -61,9 +61,9 @@ const ProductForm = (props) => {
   return (
     <div>
       <form onSubmit={handleSubmitForm}>
-      <button className="close-button" onClick={props.handleCloseModal}>X</button>
+        <button className="close-button" onClick={props.handleCloseModal}>X</button>
         <h1>{props.selected || productId ? 'Edit Product' : 'New Product'}</h1>
-        
+
         <label htmlFor="name"> Name </label>
         <input
           id="name"
@@ -72,7 +72,7 @@ const ProductForm = (props) => {
           onChange={handleChange}
           required
         />
-        
+
         <label htmlFor="description"> Description </label>
         <input
           id="description"
@@ -80,7 +80,7 @@ const ProductForm = (props) => {
           value={formData.description}
           onChange={handleChange}
         />
-        
+
         <label htmlFor="buyNowPrice"> Buy Now Price </label>
         <input
           id="buyNowPrice"
@@ -88,7 +88,7 @@ const ProductForm = (props) => {
           value={formData.buyNowPrice}
           onChange={handleChange}
         />
-        
+
         <label htmlFor="startingBid"> Starting Bid </label>
         <input
           id="startingBid"
@@ -96,7 +96,7 @@ const ProductForm = (props) => {
           value={formData.startingBid}
           onChange={handleChange}
         />
-        
+
         <label htmlFor="imgURL"> Image URL </label>
         <input
           id="imgURL"
@@ -104,7 +104,7 @@ const ProductForm = (props) => {
           value={formData.imgURL}
           onChange={handleChange}
         />
-        
+
         <button type="submit">{props.selected || productId ? 'Update Product' : 'Add New Product'}</button>
       </form>
     </div>

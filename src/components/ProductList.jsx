@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductForm from './ProductForm';
 import * as productService from '../services/productService';
-import '../ProductList.css'
+import './ProductList.css'
 
 const ProductList = (props) => {
   const [products, setProducts] = useState([]);

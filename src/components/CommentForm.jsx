@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import '../CommentForm.css'
+import './CommentForm.css'
 
 function CommentForm({ productId, onCommentAdded }) {
   const [text, setText] = useState('')

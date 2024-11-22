@@ -24,17 +24,17 @@ h1 {
 }
 
 .productContainer {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   text-align: center;
-   margin: 15px;
-   padding: 15px;
-   width: 200px;
-   height: 300px;
-   border-radius: 10px;
-   background-color: #d97a4a;
-   box-shadow: 1px 1px 1px 1px #3c3c3c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 15px;
+    padding: 15px;
+    width: 200px;
+    height: 300px;
+    border-radius: 10px;
+    background-color: #d97a4a;
+    box-shadow: 1px 1px 1px 1px #3c3c3c;
 }
 
 .productContainer img {
@@ -54,5 +54,5 @@ h1 {
 
 .productContainer:hover h2,
 .productContainer:hover p {
-    background-color: #c4922b; 
+    background-color: #c4922b;
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as authService from '../services/authService';
-import { useNavigate }  from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import "../components/accountCreation.css"
 
 
@@ -9,12 +9,12 @@ const AccountCreation = (props) => {
     const navigate = useNavigate()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [message,setMessage] = useState([''])
+    const [message, setMessage] = useState([''])
 
     const updateMessage = (msg) => {
         setMessage(msg);
     }
-  
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = { username, password };
