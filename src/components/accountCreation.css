@@ -1,5 +1,5 @@
 body {
-    background-color: #6A88A3; 
+    background-color: #6A88A3;
     color: #3C3C3C;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,8 +8,8 @@ body {
 
 
 form {
-    background-color: #D9744A; 
-    border: 1px solid #D3D3D3; 
+    background-color: #D9744A;
+    border: 1px solid #D3D3D3;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -21,7 +21,7 @@ form {
 label {
     display: block;
     font-weight: bold;
-    color: #885E3C; 
+    color: #885E3C;
     margin-bottom: 5px;
 }
 
@@ -29,25 +29,25 @@ label {
 input {
     width: 90%;
     padding: 10px;
-    border: 1px solid #D3D3D3; 
+    border: 1px solid #D3D3D3;
     border-radius: 5px;
-    background-color: #F7F1E5; 
-    color: #3C3C3C; 
+    background-color: #F7F1E5;
+    color: #3C3C3C;
     margin-bottom: 15px;
     font-size: 1rem;
 }
 
 
 input:focus {
-    border-color: #4C6578; 
+    border-color: #4C6578;
     outline: none;
     box-shadow: 0 0 5px #4C6578;
 }
 
 
 button {
-    background-color: #D9A441; 
-    color: #F7F1E5; 
+    background-color: #D9A441;
+    color: #F7F1E5;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -59,40 +59,40 @@ button {
 
 
 button:hover {
-    background-color: #C4922B; 
-    color: #E6DFCF; 
+    background-color: #C4922B;
+    color: #E6DFCF;
 }
 
 
 button:focus {
     outline: none;
-    box-shadow: 0 0 5px #4C6578; 
+    box-shadow: 0 0 5px #4C6578;
 }
 
 
 .error-message {
-    color: #AF6D42; 
+    color: #AF6D42;
     font-size: 0.9rem;
     margin-top: 10px;
 }
 
 
 a {
-    color: #4A6A7C; 
+    color: #4A6A7C;
     text-decoration: none;
 }
 
 
 a:hover {
-    color: #3D596B; 
+    color: #3D596B;
     text-decoration: underline;
 }
 
 
 input[disabled],
 button[disabled] {
-    background-color: #B0B0B0; 
-    color: #D3D3D3; 
+    background-color: #B0B0B0;
+    color: #D3D3D3;
     cursor: not-allowed;
 }
 

@@ -1,8 +1,6 @@
-const saveToken = (token) => localStorage.setItem('token', token);
 const getToken = () => localStorage.getItem('token');
 const clearToken = () => localStorage.removeItem('token');
 const BACKEND_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}`;
-console.log('BACKEND_URL:', BACKEND_URL);
 import axios from "axios";
 
 
@@ -11,12 +9,12 @@ const getUser = () => {
   if (!token) return null;
 
   try {
-    
-    const payload = JSON.parse(atob(token.split('.')[1])); 
-    return payload; 
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload;
   } catch (err) {
     console.error('Invalid token:', err.message);
-    clearToken(); 
+    clearToken();
     return null;
   }
 };
@@ -24,7 +22,7 @@ const getUser = () => {
 const signup = async (formData) => {
   try {
     const res = await axios.post(`${BACKEND_URL}/users/signup`, formData)
-   
+
     if (res.data.error) {
       throw new Error(res.data.error)
     }
@@ -64,12 +62,9 @@ const signin = async (user) => {
   }
 }
 
-
-
 const signout = () => {
   clearToken();
 };
-
 
 const isAuthenticated = () => !!getToken();
 
