@@ -20,14 +20,18 @@ const NavBar = ({ user, handleLogout }) => {
         </div>
         <div className="navbar-links">
           <Link to="/Shop">Shop</Link>
-          <Link to="/products">Products</Link>
+         
           {user ? (
+            <>
+             <Link to="/products"> My Products</Link>
             <div className="welcome-message">
               <span>Welcome, {user?.username}!</span>
               <button className="logout-button" onClick={handleLogoutAndRedirect}>
                 Sign Out
               </button>
             </div>
+            </>
+            
           ) : (
             <Link to="/login">Login</Link>
           )}
